@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantinhas</title>
+</head>
+<body>
+    <h1>Formulario de imagem</h1>
+    <form action="http://localhost:3000/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*">
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Imagens Salvas</h2>
+    <ul id="image-list">
+    </ul>
+
+    <script>
+        fetch("http://localhost:3000/uploads")
+        .then(response => response.json())
+        .then(images => {
+            const imgList = document.getElementById("image-list")
+            // listando array de nomes [mario.png, sonic.png]
+            images.forEach(image => {
+                const li = document.createElement("li")
+                const img = document.createElement("img")
+                img.src= `http://localhost:3000/uploads/${image}`
+                img.style.width = "400px"
+
+                li.appendChild(img)
+                imgList.appendChild(li)
+            });
+        })
+    </script>
+
+</body>
+</html>
